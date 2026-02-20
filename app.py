@@ -32,12 +32,14 @@ if st.button("Add Feedback"):
         st.success("Feedback added!")
 
 # ----------------------------
-# INSTANT ANALYSIS (🔥 NEW)
+# INSTANT ANALYSIS (🔥 FIXED)
 # ----------------------------
 if st.button("Analyze Single Feedback"):
     if new_feedback:
         result = analyze_sentiment([new_feedback])[0]
         st.info(f"Sentiment: {result[0]} ({round(result[1],2)})")
+    else:
+        st.warning("Please enter feedback first!")
 
 # ----------------------------
 # SHOW DATA
@@ -46,6 +48,11 @@ st.subheader("📊 Raw Patient Feedback Data")
 st.dataframe(data)
 
 feedbacks = data["feedback"].tolist()
+
+# ----------------------------
+# DASHBOARD METRIC (🔥 NEW)
+# ----------------------------
+st.metric("Total Feedback", len(feedbacks))
 
 # ----------------------------
 # MAIN ANALYSIS
@@ -66,7 +73,7 @@ if st.button("Generate Smart Notes"):
     neg_percent = round((neg_count / total) * 100, 1)
 
     # ----------------------------
-    # ISSUE GROUPING (🔥 IMPORTANT)
+    # ISSUE GROUPING
     # ----------------------------
     issue_list = []
 
@@ -82,7 +89,7 @@ if st.button("Generate Smart Notes"):
     top_issue = issue_counts.most_common(1)[0][0]
 
     # ----------------------------
-    # IMPACT SUMMARY (🔥🔥🔥)
+    # IMPACT SUMMARY
     # ----------------------------
     st.subheader("📌 Impact Summary")
 
@@ -100,7 +107,7 @@ if st.button("Generate Smart Notes"):
     st.pyplot(fig1)
 
     # ----------------------------
-    # BAR CHART (🔥 NEW)
+    # BAR CHART
     # ----------------------------
     st.subheader("📊 Issue Distribution")
 
@@ -111,7 +118,7 @@ if st.button("Generate Smart Notes"):
     st.pyplot(fig2)
 
     # ----------------------------
-    # GROUPED ISSUES (🔥🔥🔥)
+    # ISSUE BREAKDOWN
     # ----------------------------
     st.subheader("🚨 Issue Breakdown")
 
